@@ -9,6 +9,8 @@ router.get('/', function(req, res, next) {
   res.json({"name":"Test API"});
 });
 
-router.get('/getAllLifers', LiferlistController.getAllLifers);
+
+router.get('/getAllLifers', LiferlistController.getAllLifers);    
+router.get('/getAllLifers/:lifer_id', LiferlistController.getLifer);
 
 module.exports = router;

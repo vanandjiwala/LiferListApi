@@ -38,7 +38,8 @@ app.use('/api', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  next();
+  res.json({"message":"API not present"});
 });
 
 // error handler
