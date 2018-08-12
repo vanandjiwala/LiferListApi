@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const models = require("./models");
 models.sequelize.authenticate().then(() => {
     console.log('Connected to SQL database:', CONFIG.development.database);
+    models.sequelize.sync();
 })
 .catch(err => {
     console.error('Unable to connect to SQL database:',CONFIG.db_name, err);

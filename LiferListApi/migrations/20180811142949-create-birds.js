@@ -1,18 +1,14 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('liferlists', {
+    return queryInterface.createTable('birds', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      bird_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'birds', key: 'id' }
-      },
-      place: {
+      commonName: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -26,6 +22,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('liferlists');
+    return queryInterface.dropTable('birds');
   }
 };
