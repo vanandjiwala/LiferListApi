@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var liferlist = sequelize.define('liferlist', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
-    bird_id: DataTypes.INTEGER,
+    species_id: DataTypes.INTEGER,
     Place: DataTypes.STRING
   }, {
     indexes: [
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
   liferlist.associate = function(models) {
     // associations can be defined here
-    this.belongsTo(models.birds, {as: 'birdId', foreignKey : 'bird_id'},{ onDelete: 'cascade' });
+    this.belongsTo(models.species, {as: 'speciesId', foreignKey : 'species_id'},{ onDelete: 'cascade' });
   };
   return liferlist;
 };
