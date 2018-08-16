@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var liferlist = sequelize.define('liferlist', {
-    id: {type: DataTypes.INTEGER, primaryKey: true},
+    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
     species_id: DataTypes.INTEGER,
     Place: DataTypes.STRING
   }, {

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var category = sequelize.define('category', {
-    id: {type: DataTypes.INTEGER, primaryKey: true},
+    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
     categoryName: DataTypes.STRING
   }, {
     indexes: [

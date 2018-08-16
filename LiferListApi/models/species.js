@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var species = sequelize.define('species', {
-    id: {type: DataTypes.INTEGER, primaryKey: true},
+    id: {type: DataTypes.INTEGER, autoIncrement: true,primaryKey: true},
     name: DataTypes.STRING,
     scientificName: DataTypes.STRING,
     status: DataTypes.STRING,
