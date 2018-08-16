@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   var species = sequelize.define('species', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
     name: DataTypes.STRING,
+    scientificName: DataTypes.STRING,
     status: DataTypes.STRING,
     category_id: DataTypes.INTEGER
   }, {

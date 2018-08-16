@@ -1,5 +1,6 @@
 const Liferlist = require('../models').liferlist;
-const Birds = require('../models').birds;
+const Species = require('../models').species;
+const Category = require('../models').category;
 
 const getAllLifers = async function(req, res) {
     res.setHeader("Content-Type", "application/json");
@@ -7,12 +8,15 @@ const getAllLifers = async function(req, res) {
     let body = [];
     Liferlist.findAll({
         include: [
-            {model: Birds,as: 'birdId',attributes: ['name','scientificName','status']}
+            {
+                model: Species,as: 'speciesId',attributes: ['name','scientificName','status'],
+                include:[{model: Category,as: 'categoryId',attributes: ['categoryName']}]
+            }
         ]
     }).then(function(lifers){
         //console.log(lifers[0].dataValues);
         for(var i = 0; i < lifers.length ; i++){
-            console.log(lifers[i].dataValues.birdId.dataValues);
+            // console.log(lifers[i].dataValues.birdId.dataValues);
             body.push(lifers[i].dataValues);
         }
         return res.json(JSON.stringify(body));
