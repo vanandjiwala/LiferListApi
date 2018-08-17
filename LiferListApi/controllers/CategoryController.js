@@ -16,29 +16,54 @@ const getAllCategories = async function(req, res) {
 }
 module.exports.getAllCategories = getAllCategories;
 
+// const addCategory = async function(req, res) {
+//     res.setHeader("Content-Type", "application/json");
+//     const body = req.body;
+//     console.log(body);
+//     Category.findOne({
+//         where:{
+//             categoryName : body.categoryName
+//         }
+//     }).then(function(category){
+//         if(category){
+//             return res.json({"msg":"category with name " + body.categoryName + " already present in the database"});
+//         }else{
+//             console.log("Null");
+//             Category
+//             .create(body)
+//             .then(newCat => {
+//                 return res.json({"msg":"category with name " + body.categoryName + " created in the database"});
+//             });
+//         }
+//     }).catch(function(err){
+//        
+//         console.log(err);
+//     });
+//     //res.json(body);
+// }
+// module.exports.addCategory = addCategory;
+
 const addCategory = async function(req, res) {
     res.setHeader("Content-Type", "application/json");
     const body = req.body;
     console.log(body);
-    Category.findOne({
-        where:{
-            categoryName : body.categoryName
-        }
-    }).then(function(category){
-        if(category){
-            return res.json({"msg":"category with name " + body.categoryName + " already present in the database"});
+    try {
+        var requestedCategory = await Category.findOne({
+            where:{
+                categoryName : body.categoryName
+            }
+        });
+
+        if(requestedCategory){
+            return res.status(200).json({"msg":"category with name " + body.categoryName + " already present in the database"});
         }else{
-            console.log("Null");
-            Category
-            .create(body)
-            .then(newCat => {
-                return res.json({"msg":"category with name " + body.categoryName + " created in the database"});
-            });
+           var newCategory = await Category.create(body);
+           if(newCategory){
+             return res.status(200).json({"msg":"category with name " + body.categoryName + " created in the database"});
+           }
         }
-    }).catch(function(err){
-        return res.json({"msg":"Something unexpected occured","error":err});
-        console.log(err);
-    });
-    //res.json(body);
+    } catch (error) {
+        return res.status(400).json({"msg":"Something unexpected occured","error":err});
+    }
 }
 module.exports.addCategory = addCategory;
