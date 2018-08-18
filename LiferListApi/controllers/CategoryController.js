@@ -13,7 +13,7 @@ const getAllCategories = async function(req, res) {
     }).catch(function(err){
         return res.json({"msg":"Something unexpected occured","error":err})
     });
-}
+};
 module.exports.getAllCategories = getAllCategories;
 
 // const addCategory = async function(req, res) {
@@ -63,7 +63,27 @@ const addCategory = async function(req, res) {
            }
         }
     } catch (error) {
-        return res.status(400).json({"msg":"Something unexpected occured","error":err});
+        return res.status(400).json({"msg":"Something unexpected occured","error":error});
     }
-}
+};
 module.exports.addCategory = addCategory;
+
+const deleteCategory = async function(req,res){
+    res.setHeader("Content-Type", "application/json");
+    try {
+        var deleteCategory = await Category.destroy({
+            where:{
+                categoryName : req.params.categoryName
+            }
+        });
+
+        if(deleteCategory == 1){
+            return res.status(200).json({"msg":"category with name " + req.params.categoryName + " deleted in the database"});
+        }else{
+            return res.status(200).json({"msg":"category with name " + req.params.categoryName + " could not be deleted in the database"});
+        }       
+    } catch (error) {
+        return res.status(400).json({"msg":"Something unexpected occured","error":error}); 
+    }
+};
+module.exports.deleteCategory = deleteCategory;

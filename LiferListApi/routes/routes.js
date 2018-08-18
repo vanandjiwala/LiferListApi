@@ -16,6 +16,7 @@ router.get('/getAllLifers', LiferlistController.getAllLifers);
 
 //Category APIs
 router.get('/categories', CategoryController.getAllCategories);
-router.post('/category', CategoryController.addCategory)
+router.post('/category', CategoryController.addCategory);
+router.delete('/category/:categoryName', CategoryController.deleteCategory);
 
 module.exports = router;
