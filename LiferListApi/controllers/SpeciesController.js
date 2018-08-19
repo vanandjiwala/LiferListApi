@@ -15,10 +15,10 @@ const getAllSpecies = async function (req, res) {
             console.log(category.dataValues.id);
             selectedCategory = category.dataValues.id;
         } else {
-            console.log("Category Not present in the DB");
+            return res.status(400).json({ "msg": "Something unexpected occured"});
         }
     } catch (error) {
-
+        return res.status(400).json({ "msg": "Something unexpected occured", "error": error });
     }
 
     try {
@@ -35,3 +35,8 @@ const getAllSpecies = async function (req, res) {
     }
 };
 module.exports.getAllSpecies = getAllSpecies;
+
+const addSpecies = async function(req,res){
+
+};
+module.exports.addSpecies = addSpecies;

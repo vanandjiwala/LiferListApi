@@ -22,6 +22,7 @@ router.put('/category/:categoryName', CategoryController.updateCategory); //U
 router.delete('/category/:categoryName', CategoryController.deleteCategory); //D
 
 //Species APIs
+router.post('/species', SpeciesController.addSpecies); //C
 router.get('/species', SpeciesController.getAllSpecies); //R
 
 module.exports = router;
