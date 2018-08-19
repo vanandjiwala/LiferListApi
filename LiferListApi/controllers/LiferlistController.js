@@ -15,11 +15,12 @@ const getAllLifers = async function(req, res) {
         ]
     }).then(function(lifers){
         //console.log(lifers[0].dataValues);
-        for(var i = 0; i < lifers.length ; i++){
-            // console.log(lifers[i].dataValues.birdId.dataValues);
-            body.push(lifers[i].dataValues);
-        }
-        return res.json(JSON.stringify(body));
+        // for(var i = 0; i < lifers.length ; i++){
+        //     // console.log(lifers[i].dataValues.birdId.dataValues);
+        //     body.push(lifers[i].dataValues);
+        // }
+        //return res.json(JSON.stringify(body));
+        return res.json(lifers);
     }).catch(function(err){
         return res.json({"msg":"Something unexpected occured","error":err})
     });

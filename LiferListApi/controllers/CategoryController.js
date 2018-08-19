@@ -6,10 +6,11 @@ const getAllCategories = async function (req, res) {
     Category.findAll({
     }).then(function (categories) {
         //console.log(lifers[0].dataValues);
-        for (var i = 0; i < categories.length; i++) {
-            body.push(categories[i].dataValues);
-        }
-        return res.json(JSON.stringify(body));
+        // for (var i = 0; i < categories.length; i++) {
+        //     body.push(categories[i].dataValues);
+        // }
+        // return res.json(JSON.stringify(body));
+        return res.json(categories);
     }).catch(function (err) {
         return res.json({ "msg": "Something unexpected occured", "error": err })
     });

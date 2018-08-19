@@ -3,6 +3,7 @@ var router = express.Router();
 
 const LiferlistController = require('./../controllers/LiferlistController');
 const CategoryController = require('./../controllers/CategoryController');
+const SpeciesController = require('./../controllers/SpeciesController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,5 +21,7 @@ router.get('/categories', CategoryController.getAllCategories); //R
 router.put('/category/:categoryName', CategoryController.updateCategory); //U
 router.delete('/category/:categoryName', CategoryController.deleteCategory); //D
 
+//Species APIs
+router.get('/species', SpeciesController.getAllSpecies); //R
 
 module.exports = router;
