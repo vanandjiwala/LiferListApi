@@ -74,8 +74,61 @@ const addSpecies = async function (req, res) {
         }
 
     }
-
-
-
 };
 module.exports.addSpecies = addSpecies;
+
+const updateSpecies = async function(req, res){
+    res.setHeader("Content-Type", "application/json");
+    console.log(req.params.speciesName);
+    const body = req.body;
+    try {
+        var updateSpecies = await Species.findOne({
+            where : { 
+                name : req.params.speciesName
+            }
+        });
+
+        if(updateSpecies){
+            console.log("update record");
+            console.log(updateSpecies.dataValues.category_id);
+
+            var category = await Category.findOne({
+                where : {
+                    id: updateSpecies.dataValues.category_id
+                },
+                attributes: ['categoryName']
+            });
+
+            if(category){
+                console.log(category.dataValues.categoryName);
+                console.log(body.categoryName);
+                if(category.dataValues.categoryName == body.categoryName){
+                    console.log("Just species table");
+                    updateSpecies.updateAttributes(body);
+                    return res.status(200).json({ "msg": "Species with name " + req.params.speciesName + " Updated in the database" });
+                }else{
+                    console.log("species table plus categories table");
+                    category = await Category.findOne({
+                        where : {
+                            categoryName: body.categoryName
+                        },
+                        attributes: ['id']
+                    });
+
+                    body.category_id = category.dataValues.id;
+                    updateSpecies.updateAttributes(body);
+                    return res.status(200).json({ "msg": "Species with name " + req.params.speciesName + " Updated in the database" });
+                }
+            }else{
+                return res.status(404).json({ "msg": "Specified Category Not present in the Database" }); 
+            }
+
+        }else{
+            return res.status(404).json({ "msg": "Specified Species Not present in the Database" });
+        }
+
+    } catch (error) {
+        return res.status(500).json({ "msg": "Something unexpected occured", "error": error });
+    }
+};
+module.exports.updateSpecies = updateSpecies;
