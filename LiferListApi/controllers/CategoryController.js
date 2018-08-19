@@ -47,7 +47,6 @@ module.exports.getAllCategories = getAllCategories;
 const addCategory = async function (req, res) {
     res.setHeader("Content-Type", "application/json");
     const body = req.body;
-    console.log(body);
     try {
         var requestedCategory = await Category.findOne({
             where: {
@@ -56,15 +55,15 @@ const addCategory = async function (req, res) {
         });
 
         if (requestedCategory) {
-            return res.status(200).json({ "msg": "category with name " + body.categoryName + " already present in the database" });
+            return res.status(409).json({ "msg": "category with name " + body.categoryName + " already present in the database" });
         } else {
             var newCategory = await Category.create(body);
             if (newCategory) {
-                return res.status(200).json({ "msg": "category with name " + body.categoryName + " created in the database" });
+                return res.status(201).json({ "msg": "category with name " + body.categoryName + " created in the database" });
             }
         }
     } catch (error) {
-        return res.status(400).json({ "msg": "Something unexpected occured", "error": error });
+        return res.status(500).json({ "msg": "Something unexpected occured", "error": error });
     }
 };
 module.exports.addCategory = addCategory;
