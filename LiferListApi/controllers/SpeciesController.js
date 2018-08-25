@@ -132,3 +132,26 @@ const updateSpecies = async function(req, res){
     }
 };
 module.exports.updateSpecies = updateSpecies;
+
+const deleteSpecies = async function(req, res){
+    res.setHeader("Content-Type", "application/json");
+    console.log(req.params.speciesName);
+    try {
+        var deleteSpecies = await Species.destroy({
+            where: {
+                name: req.params.speciesName
+            }
+        });
+
+        if (deleteSpecies == 1) {
+            return res.status(200).json({ "msg": "Species with name " + req.params.speciesName + " deleted in the database" });
+        } else {
+            return res.status(200).json({ "msg": "Species with name " + req.params.speciesName + " could not be deleted in the database" });
+        }
+        
+    } catch (error) {
+        return res.status(400).json({ "msg": "Something unexpected occured", "error": error });
+    }
+
+};
+module.exports.deleteSpecies = deleteSpecies;
