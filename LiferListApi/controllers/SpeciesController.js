@@ -167,3 +167,27 @@ const deleteSpecies = async function(req, res){
 
 };
 module.exports.deleteSpecies = deleteSpecies;
+
+const getSpecies = async function (req, res) {
+    res.setHeader("Content-Type", "application/json");
+    var categoryQry = req.query.category;
+    console.log(req.params);
+    try {
+        var species;
+        
+            species = await Species.findOne({
+                where: { 
+                    name: req.params.speciesName
+                }        
+            });       
+        
+        if (species) {
+            return res.status(200).json(species);
+        } else {
+            return res.status(200).json({ "msg": "No species present in the database" });
+        }
+    } catch (error) {
+        return res.status(500).json({ "msg": "Something unexpected occured", "error": error });
+    }
+};
+module.exports.getSpecies = getSpecies;

@@ -24,6 +24,7 @@ router.delete('/category/:categoryName', CategoryController.deleteCategory); //D
 //Species APIs
 router.post('/species', SpeciesController.addSpecies); //C
 router.get('/species', SpeciesController.getAllSpecies); //R
+router.get('/species/:speciesName', SpeciesController.getSpecies); //R
 router.put('/species/:speciesName', SpeciesController.updateSpecies); //U
 router.delete('/species/:speciesName', SpeciesController.deleteSpecies); //D
 
